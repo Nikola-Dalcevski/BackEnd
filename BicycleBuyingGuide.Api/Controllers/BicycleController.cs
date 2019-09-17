@@ -27,6 +27,7 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         }
 
+
         [HttpGet]
         public ActionResult<List<Bicycle>> GetAllBicycles()
         {

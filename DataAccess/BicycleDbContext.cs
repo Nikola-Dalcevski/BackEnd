@@ -19,7 +19,7 @@ namespace DataAccess
         public DbSet<Bicycle> Bicycles { get; set; }
         
 
-
+        //TODO: add hashpassword za base admin
         protected override void OnModelCreating(ModelBuilder modelbilder)
         {
             modelbilder.Entity<User>()

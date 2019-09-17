@@ -83,7 +83,9 @@ namespace BusinessLayer
             _userRepository.Insert(admin);
             
         }
-
+        //TODO: find way to implement in repositories find by email
+        //cant change baseReposiotry because its inhering form entity that has only id.
+        //try to implement in user and bicycle(bicycle name mesto mail)
         private bool UserExists(string email)
         {
             var user = _userRepository.GetByEmail(email);
