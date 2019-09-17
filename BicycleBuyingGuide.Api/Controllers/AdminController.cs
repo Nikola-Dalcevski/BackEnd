@@ -1,36 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessLayer.Contracts;
+using DomainModels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleBuyingGuide.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AdminController : Controller
     {
-        public IActionResult AddBike()
+        private readonly IAdminServices _adminService;
+      
+
+        public AdminController(IAdminServices adminService)
         {
-            return View();
+            _adminService = adminService;
+          
         }
 
-        public IActionResult EditBicycle()
+        [Authorize(Roles = "Admin")]
+        [HttpPost("addbike")]
+        public IActionResult AddBike([FromBody] Bicycle bicycle)
         {
-            return View();
+            _adminService.AddBicycle(bicycle);
+            return Ok(bicycle.Id);
         }
 
-        public IActionResult RemoveBicycle()
+      
+        [HttpPut("edit-bike")]
+        public IActionResult EditBicycle([FromBody] Bicycle bicycle)
         {
-            return View();
+            _adminService.EditBicycle(bicycle);
+            return Ok(bicycle.Id);
         }
 
-        public IActionResult AddAdmin()
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("remuve-bike/{id}")]
+        public IActionResult RemoveBicycle(int id)
         {
-            return View();
+            var bicyce = _adminService.RemoveBicycle(id);
+            return Ok(id);
         }
 
-        public IActionResult RemoveAdmin()
+        [Authorize(Roles = "BaseAdmin")]
+        [HttpPost("add-admin")]
+        public IActionResult AddAdmin([FromBody] User admin)
         {
-            return View();
+            _adminService.AddAdmin(admin);
+            return Ok(admin.Id);
+        }
+
+        [Authorize(Roles = "BaseAdmin")]
+        [HttpPost("remove-admin/{id}")]
+        public IActionResult RemoveAdmin(int id)
+        {
+            _adminService.RemuveAdmin(id);
+            return Ok(id);
         }
     }
 }

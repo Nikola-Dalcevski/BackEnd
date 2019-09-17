@@ -7,5 +7,6 @@ namespace DataAccess.Contracts
 {
     public interface IBicycleRepository : IRepository<Bicycle>
     {
+        Bicycle GetByName(string name);
     }
 }

@@ -6,18 +6,19 @@ using System.Text;
 
 namespace DataAccess.Repositories
 {
-    public class BicycleRepository : BaseRepository<Bicycle> , IBicycleRepository
+    public class UserRepository : BaseRepository<User> , IUserRepository
     {
 
-        public BicycleRepository(BicycleDbContex context)
+        public UserRepository(BicycleDbContex context)
             :base(context)
         {
-                    
+
         }
 
-        public Bicycle GetByName(string name)
+        public User GetByEmail(string email)
         {
-            return null;
+            
+            throw new NotImplementedException();
         }
     }
 }

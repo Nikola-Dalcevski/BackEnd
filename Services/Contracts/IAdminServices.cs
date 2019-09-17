@@ -1,15 +1,15 @@
-﻿using Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DomainModels.Models;
 
 namespace BusinessLayer.Contracts
 {
     public interface IAdminServices
     {
-        int AddBicycle(BicycleViewModel bicycle);
-        int EditBicycle(BicycleViewModel bicycle);
-        int RemoveBicycle(BicycleViewModel bicycle);
-        int AddAdmin(AdminViewModel admin);
+        int GetAllAdmins();
+        int Authenticate(string email, string password);
+        int AddBicycle(Bicycle bicycle);
+        int EditBicycle(Bicycle bicycle);
+        int RemoveBicycle(int bicycleId);
+        int AddAdmin(User admin);
+        int RemuveAdmin(int adminId);
     }
 }

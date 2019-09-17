@@ -1,16 +1,12 @@
-﻿using Models;
-using Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DomainModels.Models;
 
 namespace BusinessLayer.Services
 {
     public interface IUserServices
     {
-        void RegisterUser(CustomerViewModel customer);
-        int GetOrder(OrderViewModel order);
-        int GetAllOrders();
+        void RegisterUser(User user);
+        User Authenticate(string email, string password, out string token);
+        void RegisterAdmin(User user);
 
     }
 }

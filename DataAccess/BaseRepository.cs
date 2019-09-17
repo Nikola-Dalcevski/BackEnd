@@ -31,6 +31,8 @@ namespace DataAccess
             return _entity.ToList();
         }
 
+
+
         public T GetById(int id)
         {
             return _entity.SingleOrDefault(x => x.Id == id);

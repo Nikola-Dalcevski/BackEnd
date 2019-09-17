@@ -6,13 +6,24 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Services
 {
-    public class BicycleServices : IBiclycleServices
+    public class BicycleServices : IBicycleServices
     {
         private readonly IBicycleRepository _bicycleRepository;
 
         public BicycleServices(IBicycleRepository bicycleRepository)
         {
            _bicycleRepository = bicycleRepository;
+        }
+
+        public void AddBicycle(Bicycle bicycle)
+        {
+            
+             
+        }
+
+        public int EditBicycle(Bicycle bicycle)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Bicycle> GetAllBicycles()
@@ -31,6 +42,16 @@ namespace BusinessLayer.Services
                 throw new Exception($"There is no user with {bicycleId} id");
             }
             return bicycle;
+        }
+
+        public int RemoveBicycle(int bicycleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IBicycleServices.AddBicycle(Bicycle bicycle)
+        {
+            throw new NotImplementedException();
         }
     }
 }

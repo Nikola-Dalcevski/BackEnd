@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using BusinessLayer.Contracts;
 using DomainModels.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +11,9 @@ namespace BicycleBuyingGuide.Api.Controllers
     [ApiController]
     public class BicycleController : Controller
     {
-        private readonly IBiclycleServices _bicycleServices;
+        private readonly IBicycleServices _bicycleServices;
 
-        public BicycleController(IBiclycleServices bicycleServices)
+        public BicycleController(IBicycleServices bicycleServices)
         {
             _bicycleServices = bicycleServices;
         }

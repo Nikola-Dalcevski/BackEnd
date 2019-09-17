@@ -22,8 +22,7 @@ namespace DomainModels.Models
         [Required]
         [MaxLength(50)]
         public string OrderCity { get; set; }
-
-        
+     
         public DateTime? DeleveryDate { get; set; }
 
         public bool IsActiv { get; set; }
@@ -35,7 +34,7 @@ namespace DomainModels.Models
 
         public int UserId { get; set; }
 
-        public BaseUser User { get; set; }
+        public User User { get; set; }
 
 
     }

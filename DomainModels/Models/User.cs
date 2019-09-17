@@ -5,8 +5,7 @@ using System.Text;
 
 namespace DomainModels.Models
 {
-    
-    public abstract class BaseUser : Entity
+    public class User : Entity
     {
         [MaxLength(100)]
         [Required]
@@ -20,10 +19,13 @@ namespace DomainModels.Models
         [MaxLength(50)]
         public string Password { get; set; }
 
-       
         [Required]
         [MaxLength(20)]
         public string Phone { get; set; }
-   
+
+        [Required]
+        public string Role { get; set; }
+
+        public List<Order> Orders { get; set; }
     }
 }

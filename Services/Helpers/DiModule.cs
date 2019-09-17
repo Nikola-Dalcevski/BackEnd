@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Contracts;
+﻿using BusinessLayer;
+using BusinessLayer.Contracts;
 using BusinessLayer.Services;
 using DataAccess;
 using DataAccess.Contracts;
@@ -17,9 +18,12 @@ namespace Services.Helpers
 
             services.AddScoped<IBicycleRepository, BicycleRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<ICutomerRepository,  CustomerRepository>();
-            services.AddScoped<IAdminRepository, AdminRepository>();
-            services.AddScoped<IBiclycleServices, BicycleServices>();
+            services.AddScoped<IUserRepository,  UserRepository>();
+
+            services.AddScoped<IBicycleServices, BicycleServices>();
+            services.AddScoped<IAdminServices, AdminServices>();
+            services.AddScoped<IUserServices, UserServices>();
+
 
             return services; 
         }

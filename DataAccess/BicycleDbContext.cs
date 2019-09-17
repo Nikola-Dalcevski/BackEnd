@@ -14,22 +14,25 @@ namespace DataAccess
 
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Bicycle> Bicycles { get; set; }
-        public DbSet<Admin> Admins { get; set; }
+        
 
 
         protected override void OnModelCreating(ModelBuilder modelbilder)
         {
-            modelbilder.Entity<Admin>()
-           .HasData(new Admin
+            modelbilder.Entity<User>()
+           .HasData(new User
            {
                Name = "Admin",
                Email = "Admin@gmail.com",
                Password = "123456",
                Phone = "111111111",
-               Id = 1
+               Id = 1,
+               Orders = null,
+               Role = "BaseAdmin"
+
 
            });
 

@@ -5,7 +5,9 @@ using System.Text;
 
 namespace DataAccess.Contracts
 {
-    public interface IAdminRepository : IRepository<Admin>
+    public interface IUserRepository : IRepository<User>
     {
+        User GetByEmail(string email);
+
     }
 }
