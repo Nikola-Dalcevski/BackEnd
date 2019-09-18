@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using BusinessLayer.Contracts;
+using BusinessLayer.Helpers;
 using BusinessLayer.Services;
 using DataAccess;
 using DataAccess.Contracts;
@@ -23,6 +24,9 @@ namespace Services.Helpers
             services.AddScoped<IBicycleServices, BicycleServices>();
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IUserServices, UserServices>();
+
+
+            services.AddScoped<IJwtTokenGenerator,JwtTokenGenerator>();
 
 
             return services; 

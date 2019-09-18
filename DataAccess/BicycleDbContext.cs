@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DataAccess
@@ -19,15 +20,19 @@ namespace DataAccess
         public DbSet<Bicycle> Bicycles { get; set; }
         
 
-        //TODO: add hashpassword za base admin
+        
         protected override void OnModelCreating(ModelBuilder modelbilder)
         {
+           var password = "123456";
+            var hashPassword = sha256(password);
+            
+
             modelbilder.Entity<User>()
            .HasData(new User
            {
                Name = "Admin",
                Email = "Admin@gmail.com",
-               Password = "123456",
+               Password = hashPassword,
                Phone = "111111111",
                Id = 1,
                Orders = null,
@@ -41,6 +46,21 @@ namespace DataAccess
 
         }
 
+        public static string sha256(string password)
+        {
+            StringBuilder sb = new StringBuilder();
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+                foreach (byte theByte in bytes)
+                {
+                    sb.Append(theByte.ToString("x2"));
+                }
 
+                return sb.ToString();
+
+
+            }
+        }
     }
 }

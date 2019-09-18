@@ -1,23 +1,23 @@
 ﻿using DataAccess.Contracts;
 using DomainModels.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace DataAccess.Repositories
 {
     public class BicycleRepository : BaseRepository<Bicycle> , IBicycleRepository
     {
+        private readonly BicycleDbContex _context;
 
         public BicycleRepository(BicycleDbContex context)
             :base(context)
         {
-                    
+            _context = context;
         }
 
         public Bicycle GetByName(string name)
         {
-            return null;
-        }
+           var bike = _context.Bicycles.SingleOrDefault(b => b.FullName == name);
+            return bike;
+        } 
     }
 }
