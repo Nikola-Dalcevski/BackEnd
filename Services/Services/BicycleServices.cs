@@ -17,18 +17,22 @@ namespace BusinessLayer.Services
 
         public void AddBicycle(Bicycle bicycle)
         {
-            
-             
+            if (BikeExistsbyName(bicycle.FullName))
+            {
+                throw new ArgumentException($"Bike with fullname: {bicycle.FullName} alredy exists");
+            }
+            _bicycleRepository.Insert(bicycle);
         }
 
         public int EditBicycle(Bicycle bicycle)
         {
-            throw new NotImplementedException();
+            BikeExistsById(bicycle.Id);
+            _bicycleRepository.Update(bicycle);
+            return bicycle.Id;
         }
 
         public IEnumerable<Bicycle> GetAllBicycles()
         {
-
             return _bicycleRepository.GetAll();
         }
 
@@ -36,22 +40,34 @@ namespace BusinessLayer.Services
         //TODO: Add exception middleware to catch the exepton;
         public Bicycle GetBicycle(int bicycleId)
         {
-            Bicycle bicycle = _bicycleRepository.GetById(bicycleId);
-            if (bicycle == null)
-            {
-                throw new Exception($"There is no user with {bicycleId} id");
-            }
-            return bicycle;
+           return BikeExistsById(bicycleId);
+            
         }
 
         public int RemoveBicycle(int bicycleId)
         {
-            throw new NotImplementedException();
+            BikeExistsById(bicycleId);
+            _bicycleRepository.Delete(bicycleId);
+            return bicycleId;
         }
 
-        int IBicycleServices.AddBicycle(Bicycle bicycle)
+
+        private bool BikeExistsbyName(string fullname)
         {
-            throw new NotImplementedException();
+            var bike = _bicycleRepository.GetByName(fullname);
+            return bike != null;
         }
+
+        private Bicycle BikeExistsById(int id)
+        {
+            var bike = _bicycleRepository.GetById(id);
+            if (bike == null)
+            {
+                throw new ArgumentException($"Bike with id {id} does not exists");
+            }
+            return bike;
+        }
+
+
     }
 }

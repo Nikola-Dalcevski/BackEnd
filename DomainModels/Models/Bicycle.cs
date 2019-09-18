@@ -63,7 +63,7 @@ namespace DomainModels.Models
         [MaxLength(100)]
         public string Fork { get; set; }
 
-        public List<string> Images { get; set; }
+        public string Image { get; set; }
 
         public double Prize { get; set; } 
 

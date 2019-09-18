@@ -22,7 +22,6 @@ namespace Services.Helpers
             services.AddScoped<IUserRepository,  UserRepository>();
 
             services.AddScoped<IBicycleServices, BicycleServices>();
-            services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IUserServices, UserServices>();
 
 

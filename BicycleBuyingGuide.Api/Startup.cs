@@ -1,4 +1,5 @@
 ﻿using BicycleBuyingGuide.Api.Filters;
+using BicycleBuyingGuide.Api.Middlewares;
 using DomainModels.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -75,7 +76,8 @@ namespace BicycleBuyingGuide.Api
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseMiddleware(typeof(ErrorHandelingMiddelware));
+                //app.UseDeveloperExceptionPage();
                 
             }
             app.UseStaticFiles();

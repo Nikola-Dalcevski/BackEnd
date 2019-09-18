@@ -2,6 +2,7 @@
 using System.Linq;
 using BusinessLayer.Contracts;
 using DomainModels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleBuyingGuide.Api.Controllers
@@ -18,6 +19,7 @@ namespace BicycleBuyingGuide.Api.Controllers
             _bicycleServices = bicycleServices;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<Bicycle> GetBicycle(int id)
         {
@@ -27,14 +29,38 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         }
 
-
-        [HttpGet]
+        [AllowAnonymous]
+        [HttpGet("getall")]
         public ActionResult<List<Bicycle>> GetAllBicycles()
         {
             List<Bicycle> bicycles = _bicycleServices.GetAllBicycles().ToList();
             if (bicycles.Count == 0) return NotFound("No Bicycles in dataBase");
 
             return bicycles;
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("add")]
+        public IActionResult AddBicycle([FromBody] Bicycle bicycle)
+        {
+            _bicycleServices.AddBicycle(bicycle);
+            return Ok(bicycle);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("remove/{bicycleId}")]
+        public IActionResult RemoveBicycle(int bicycleId)
+        {
+            _bicycleServices.RemoveBicycle(bicycleId);
+            return Ok(bicycleId);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("edit")]
+        public IActionResult EditBicycle([FromBody] Bicycle bicycle)
+        {
+            _bicycleServices.EditBicycle(bicycle);
+            return Ok(bicycle);
         }
     }
 }

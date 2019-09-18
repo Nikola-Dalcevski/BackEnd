@@ -16,7 +16,7 @@ namespace DomainModels.Models
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(200)]
         public string Password { get; set; }
 
         [Required]

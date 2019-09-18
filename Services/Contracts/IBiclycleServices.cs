@@ -7,7 +7,7 @@ namespace BusinessLayer.Contracts
     {
         Bicycle GetBicycle(int bicycleId);
         IEnumerable<Bicycle> GetAllBicycles();
-        int AddBicycle(Bicycle bicycle);
+        void AddBicycle(Bicycle bicycle);
         int EditBicycle(Bicycle bicycle);
         int RemoveBicycle(int bicycleId);
     }
