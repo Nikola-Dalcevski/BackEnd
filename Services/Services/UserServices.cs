@@ -3,13 +3,9 @@ using BusinessLayer.Helpers;
 using BusinessLayer.Services;
 using DataAccess.Contracts;
 using DomainModels.Models;
-using DomainModels.Settings;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer
 {
@@ -70,6 +66,39 @@ namespace BusinessLayer
         //FINISHED-TODO: find way to implement in repositories find by email
         //cant change baseReposiotry because its inhering form entity that has only id.
         //try to implement in user and bicycle(bicycle name mesto mail)
+      
+
+        public void RemoveAdmin(int adminId)
+        {
+            var admin = _userRepository.GetById(adminId);
+            if (admin == null)
+            {
+                throw new ArgumentException($"Admin with id: {adminId} does not exists");
+            }
+
+            _userRepository.Delete(adminId);
+
+        }
+
+        public List<User> GetAllUser(string role)
+        {
+
+            return _userRepository.GetAll().Where(u => u.Role == role).ToList();
+        }
+
+        public User GetUser(int id)
+        {
+            var user = _userRepository.GetById(id);
+            if (user == null)
+            {
+                throw new ArgumentException($"User with id: {id} does not exists");
+            }
+
+            return user;
+        }
+
+
+
         private bool UserExists(string email)
         {
             var user = _userRepository.GetByEmail(email);
