@@ -1,8 +1,10 @@
-﻿using BusinessLayer.Contracts;
+﻿using AutoMapper;
+using BusinessLayer.Contracts;
 using BusinessLayer.Helpers;
 using BusinessLayer.Services;
 using DataAccess.Contracts;
 using DomainModels.Models;
+using Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +15,16 @@ namespace BusinessLayer
     {
         private readonly IUserRepository _userRepository;
         private readonly IJwtTokenGenerator _jwtGenerator;
-        public UserServices(IUserRepository userRepository, IJwtTokenGenerator jwtGenerator)
+        private readonly IMapper _mapper;
+
+        public UserServices(IUserRepository userRepository, IJwtTokenGenerator jwtGenerator, IMapper mapper)
         {
             _userRepository = userRepository;
             _jwtGenerator = jwtGenerator;
-
+            _mapper = mapper;
         }
 
-        public User Authenticate(string email, string password, out string token)
+        public UserViewModel Authenticate(string email, string password, out string token)
         {
             var user = _userRepository.GetByEmail(email);
             if (user == null)
@@ -36,31 +40,41 @@ namespace BusinessLayer
             }
 
             token = _jwtGenerator.Generator(user);
-            return user;
+            var viewUser = _mapper.Map<UserViewModel>(user);
+            return viewUser;
         }
 
-        public void RegisterUser(User user)
+        public void RegisterUser(RegisterUserViewModel user)
         {
+           
             if (UserExists(user.Email))
             {
                 throw new ArgumentException($"User with email: {user.Email} alredy exists");
             }
 
-            _userRepository.Insert(user);
+            string password = Hashing.sha256(user.Password);
+            var dtoUser = _mapper.Map<User>(user);
+            dtoUser.Password = password;
+            dtoUser.Role = Roles.User;
+            _userRepository.Insert(dtoUser);
             
         }
 
-        public void RegisterAdmin(User admin)
+        //TODO:Fix the view models in controller and services;
+        public void RegisterAdmin(RegisterUserViewModel admin)
         {
             if (UserExists(admin.Email))
             {
                 throw new ArgumentException($"Admin with email: {admin.Email} alredy exists");
             }
 
-            admin.Role = Roles.Admin;
+
+            var dtoAdmin = _mapper.Map<User>(admin);
+            dtoAdmin.Role = Roles.Admin;
+            dtoAdmin.Orders = null;
             string password = Hashing.sha256(admin.Password);
             admin.Password = password;
-            _userRepository.Insert(admin);
+            _userRepository.Insert(dtoAdmin);
             
         }
         //FINISHED-TODO: find way to implement in repositories find by email
@@ -80,13 +94,14 @@ namespace BusinessLayer
 
         }
 
-        public List<User> GetAllUser(string role)
+        public List<UserViewModel> GetAllUser(string role)
         {
 
-            return _userRepository.GetAll().Where(u => u.Role == role).ToList();
+            List<User> users = _userRepository.GetAll().Where(u => u.Role == role).ToList();
+            return _mapper.Map<List<UserViewModel>>(users);
         }
 
-        public User GetUser(int id)
+        public UserViewModel GetUser(int id)
         {
             var user = _userRepository.GetById(id);
             if (user == null)
@@ -94,7 +109,7 @@ namespace BusinessLayer
                 throw new ArgumentException($"User with id: {id} does not exists");
             }
 
-            return user;
+            return _mapper.Map<UserViewModel>(user);
         }
 
 
@@ -104,5 +119,7 @@ namespace BusinessLayer
             var user = _userRepository.GetByEmail(email);
             return user != null;
         }
+
+     
     }
 }

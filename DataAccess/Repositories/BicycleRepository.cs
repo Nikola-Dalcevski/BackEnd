@@ -16,7 +16,7 @@ namespace DataAccess.Repositories
 
         public Bicycle GetByName(string name)
         {
-           var bike = _context.Bicycles.SingleOrDefault(b => b.FullName == name);
+           var bike = _context.Bicycles.SingleOrDefault(b => b.Model == name);
             return bike;
         } 
     }

@@ -62,6 +62,8 @@ namespace DataAccess.Migrations
 
                     b.Property<double>("Prize");
 
+                    b.Property<int>("Quantity");
+
                     b.Property<string>("RearDeraillerur")
                         .HasMaxLength(100);
 
@@ -95,19 +97,19 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(150);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
                     b.Property<DateTime?>("DeleveryDate");
 
                     b.Property<bool>("IsActiv");
 
                     b.Property<bool>("IsFinished");
-
-                    b.Property<string>("OrderAddress")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<string>("OrderCity")
-                        .IsRequired()
-                        .HasMaxLength(50);
 
                     b.Property<DateTime>("OrderDate");
 
@@ -134,7 +136,11 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100);
 
@@ -154,7 +160,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Email = "Admin@gmail.com", Name = "Admin", Password = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", Phone = "111111111", Role = "BaseAdmin" }
+                        new { Id = 1, Email = "Admin@gmail.com", FirstName = "Admin", LastName = "Admin", Password = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", Phone = "111111111", Role = "BaseAdmin" }
                     );
                 });
 

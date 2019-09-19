@@ -1,6 +1,8 @@
-﻿using BusinessLayer.Contracts;
+﻿using AutoMapper;
+using BusinessLayer.Contracts;
 using DataAccess.Contracts;
 using DomainModels.Models;
+using Models.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -9,17 +11,19 @@ namespace BusinessLayer.Services
     public class BicycleServices : IBicycleServices
     {
         private readonly IBicycleRepository _bicycleRepository;
+        private readonly IMapper _mapper;
 
-        public BicycleServices(IBicycleRepository bicycleRepository)
+        public BicycleServices(IBicycleRepository bicycleRepository, IMapper mapper)
         {
            _bicycleRepository = bicycleRepository;
+            _mapper = mapper;
         }
 
         public void AddBicycle(Bicycle bicycle)
         {
-            if (BikeExistsbyName(bicycle.FullName))
+            if (BikeExistsbyName(bicycle.Model))
             {
-                throw new ArgumentException($"Bike with fullname: {bicycle.FullName} alredy exists");
+                throw new ArgumentException($"Bike with fullname: {bicycle.Model} alredy exists");
             }
             _bicycleRepository.Insert(bicycle);
         }
@@ -31,16 +35,22 @@ namespace BusinessLayer.Services
             return bicycle.Id;
         }
 
-        public IEnumerable<Bicycle> GetAllBicycles()
+        public IEnumerable<BicycleViewModel> GetAllBicycles()
         {
-            return _bicycleRepository.GetAll();
+            var dtoBicycles = _bicycleRepository.GetAll();
+            if (dtoBicycles.Count == 0)
+            {
+               throw new ArgumentException("No Bicycles in dataBase");
+            }
+            return _mapper.Map<List<BicycleViewModel>>(dtoBicycles);
         }
 
 
         //TODO: Add exception middleware to catch the exepton;
-        public Bicycle GetBicycle(int bicycleId)
+        public BicycleViewModel GetBicycle(int bicycleId)
         {
-           return BikeExistsById(bicycleId);
+            var dtoBicycle = BikeExistsById(bicycleId);
+            return _mapper.Map<BicycleViewModel>(dtoBicycle);
             
         }
 

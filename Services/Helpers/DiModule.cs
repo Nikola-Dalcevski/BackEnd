@@ -23,7 +23,7 @@ namespace Services.Helpers
 
             services.AddScoped<IBicycleServices, BicycleServices>();
             services.AddScoped<IUserServices, UserServices>();
-
+            services.AddScoped<IOrderServices, OrderServices>();
 
             services.AddScoped<IJwtTokenGenerator,JwtTokenGenerator>();
 

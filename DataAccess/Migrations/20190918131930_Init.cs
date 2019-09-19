@@ -14,7 +14,8 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(maxLength: 100, nullable: false),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
                     Password = table.Column<string>(maxLength: 200, nullable: false),
                     Phone = table.Column<string>(maxLength: 20, nullable: false),
@@ -33,8 +34,8 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OrderDate = table.Column<DateTime>(nullable: false),
                     OrderUserName = table.Column<string>(maxLength: 100, nullable: false),
-                    OrderAddress = table.Column<string>(maxLength: 150, nullable: false),
-                    OrderCity = table.Column<string>(maxLength: 50, nullable: false),
+                    Address = table.Column<string>(maxLength: 150, nullable: false),
+                    City = table.Column<string>(maxLength: 50, nullable: false),
                     DeleveryDate = table.Column<DateTime>(nullable: true),
                     IsActiv = table.Column<bool>(nullable: false),
                     IsFinished = table.Column<bool>(nullable: false),
@@ -74,6 +75,7 @@ namespace DataAccess.Migrations
                     Weight = table.Column<string>(maxLength: 100, nullable: true),
                     Cruncset = table.Column<string>(maxLength: 100, nullable: true),
                     Fork = table.Column<string>(maxLength: 100, nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
                     Image = table.Column<string>(nullable: true),
                     Prize = table.Column<double>(nullable: false),
                     OrderId = table.Column<int>(nullable: true)
@@ -91,8 +93,8 @@ namespace DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "Name", "Password", "Phone", "Role" },
-                values: new object[] { 1, "Admin@gmail.com", "Admin", "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", "111111111", "BaseAdmin" });
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "Phone", "Role" },
+                values: new object[] { 1, "Admin@gmail.com", "Admin", "Admin", "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", "111111111", "BaseAdmin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bicycles_OrderId",

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace DomainModels.Models
 {
@@ -9,7 +7,11 @@ namespace DomainModels.Models
     {
         [MaxLength(100)]
         [Required]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        [MaxLength(100)]
+        [Required]
+        public string LastName { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -27,5 +29,7 @@ namespace DomainModels.Models
         public string Role { get; set; }
 
         public List<Order> Orders { get; set; }
+
+        
     }
 }

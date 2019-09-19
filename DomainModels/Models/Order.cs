@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace DomainModels.Models
 {
@@ -17,11 +16,11 @@ namespace DomainModels.Models
 
         [Required]
         [MaxLength(150)]
-        public string OrderAddress { get; set; }
+        public string Address { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string OrderCity { get; set; }
+        public string City { get; set; }
      
         public DateTime? DeleveryDate { get; set; }
 

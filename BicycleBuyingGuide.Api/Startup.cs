@@ -86,6 +86,16 @@ namespace BicycleBuyingGuide.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "To Do List API V1");
             });
+
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .WithExposedHeaders("Authorization");
+
+            });
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

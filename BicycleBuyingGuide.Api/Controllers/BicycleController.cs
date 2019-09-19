@@ -4,6 +4,7 @@ using BusinessLayer.Contracts;
 using DomainModels.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.ViewModels;
 
 namespace BicycleBuyingGuide.Api.Controllers
 {
@@ -21,7 +22,7 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public ActionResult<Bicycle> GetBicycle(int id)
+        public ActionResult<BicycleViewModel> GetBicycle(int id)
         {
             var bicycle = _bicycleServices.GetBicycle(id);
             if (bicycle == null) return NotFound($"Bicycle with {id} is not found");
@@ -31,9 +32,9 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("getall")]
-        public ActionResult<List<Bicycle>> GetAllBicycles()
+        public ActionResult<List<BicycleViewModel>> GetAllBicycles()
         {
-            List<Bicycle> bicycles = _bicycleServices.GetAllBicycles().ToList();
+            List<BicycleViewModel> bicycles = _bicycleServices.GetAllBicycles().ToList();
             if (bicycles.Count == 0) return NotFound("No Bicycles in dataBase");
 
             return bicycles;

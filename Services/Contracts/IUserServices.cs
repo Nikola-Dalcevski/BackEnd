@@ -1,16 +1,16 @@
-﻿using DomainModels.Models;
+﻿using Models.ViewModels;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Services
 {
     public interface IUserServices
     {
-        void RegisterUser(User user);
-        User Authenticate(string email, string password, out string token);
-        void RegisterAdmin(User user);
+        void RegisterUser(RegisterUserViewModel user);
+        UserViewModel Authenticate(string email, string password, out string token);
+        void RegisterAdmin(RegisterUserViewModel user);
         void RemoveAdmin(int adminId);
-        List<User> GetAllUser(string role);
-        User GetUser(int id);
+        List<UserViewModel> GetAllUser(string role);
+        UserViewModel GetUser(int id);
 
     }
 }

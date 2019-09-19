@@ -1,12 +1,13 @@
-﻿using BusinessLayer.Services;
-using DomainModels.Models;
+﻿using BicycleBuyingGuide.Api.ViewModels;
+using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.ViewModels;
 using System.Collections.Generic;
 
 namespace BicycleBuyingGuide.Api.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("bbg/[controller]")]
     public class UserController : Controller
@@ -20,22 +21,24 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
+        public IActionResult Register([FromBody] RegisterUserViewModel user)
         {
             _userServices.RegisterUser(user);
-            return Ok(user);
+            return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Authenticate([FromBody] string email, string password)
+        public IActionResult Authenticate([FromBody] LoginViewModel authorizateuser)
         {
-            _userServices.Authenticate(email, password, out string token);           
-            return Ok(token);
+            var user = _userServices.Authenticate(authorizateuser.Email, authorizateuser.Password, out string token);
+            Response.Headers.Add("Authorization", token);
+            return Ok(user);
         }
         
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "BaseAdmin")]
         [HttpPost("register-admin")]
-        public IActionResult RegisterAdmin([FromBody] User admin)
+        public IActionResult RegisterAdmin([FromBody] RegisterUserViewModel admin)
         {                   
             _userServices.RegisterAdmin(admin);
             return Ok();
@@ -43,7 +46,7 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public ActionResult<User> GetUser(int id)
+        public ActionResult<UserViewModel> GetUser(int id)
         {
             var user = _userServices.GetUser(id);
             return Ok(user);
@@ -51,9 +54,9 @@ namespace BicycleBuyingGuide.Api.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("get-all-users/{role}")]
-        public ActionResult<List<User>> GetAllUsers(string role)
+        public ActionResult<List<UserViewModel>> GetAllUsers(string role)
         {
-            List<User> users = _userServices.GetAllUser(role);
+            List<UserViewModel> users = _userServices.GetAllUser(role);
             return Ok(users);
         }
 

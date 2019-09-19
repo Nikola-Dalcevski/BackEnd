@@ -28,7 +28,8 @@ namespace DataAccess
             modelbilder.Entity<User>()
            .HasData(new User
            {
-               Name = "Admin",
+               FirstName = "Admin",
+               LastName = "Admin",
                Email = "Admin@gmail.com",
                Password = hashPassword,
                Phone = "111111111",
