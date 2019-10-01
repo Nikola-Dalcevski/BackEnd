@@ -28,7 +28,7 @@ namespace DomainModels.Models
         [Required]
         public string Role { get; set; }
 
-        public List<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         
     }

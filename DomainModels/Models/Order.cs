@@ -22,14 +22,13 @@ namespace DomainModels.Models
         [MaxLength(50)]
         public string City { get; set; }
      
-        public DateTime? DeleveryDate { get; set; }
-
+        [Required]
         public bool IsActiv { get; set; }
 
-        public bool IsFinished { get; set; }
+        public bool IsFinishe { get; set; }
 
         //navigation properties
-        public virtual ICollection<Bicycle> Bicycles { get; set; }
+        public virtual ICollection<OrderBicycle> Bicycles { get; set; }
 
         public int UserId { get; set; }
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace DataAccess
 {
     public class BicycleDbContex : DbContext

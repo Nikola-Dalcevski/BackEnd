@@ -1,4 +1,5 @@
 ﻿using DomainModels.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DomainModels.Models
@@ -61,9 +62,9 @@ namespace DomainModels.Models
 
         public string Image { get; set; }
 
-        public double Prize { get; set; } 
+        public double Prize { get; set; }
 
-        
+        public virtual ICollection<OrderBicycle> Bicycles { get; set; }
 
     }
 }

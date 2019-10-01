@@ -35,7 +35,7 @@ namespace BicycleBuyingGuide.Api.Controllers
         public ActionResult<List<BicycleViewModel>> GetAllBicycles()
         {
             List<BicycleViewModel> bicycles = _bicycleServices.GetAllBicycles().ToList();
-            if (bicycles.Count == 0) return NotFound("No Bicycles in dataBase");
+           
 
             return bicycles;
         }
