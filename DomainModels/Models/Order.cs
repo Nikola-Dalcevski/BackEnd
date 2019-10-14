@@ -28,7 +28,7 @@ namespace DomainModels.Models
         public bool IsFinishe { get; set; }
 
         //navigation properties
-        public virtual ICollection<OrderBicycle> Bicycles { get; set; }
+        public virtual ICollection<OrderBicycle> OrderBicycles { get; set; }
 
         public int UserId { get; set; }
 

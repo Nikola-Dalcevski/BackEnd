@@ -1,4 +1,5 @@
 ﻿using BicycleBuyingGuide.Api.ViewModels;
+using BusinessLayer;
 using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,8 @@ namespace BicycleBuyingGuide.Api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("bbg/[controller]")]
-    public class UserController : Controller
+    [Route("bbg/[Controller]")]
+    public class UserController : ControllerBase
     {
         private readonly IUserServices _userServices;
 
@@ -31,20 +32,21 @@ namespace BicycleBuyingGuide.Api.Controllers
         [HttpPost("login")]
         public IActionResult Authenticate([FromBody] LoginViewModel authorizateuser)
         {
-            var user = _userServices.Authenticate(authorizateuser.Email, authorizateuser.Password, out string token);
-            Response.Headers.Add("Authorization", token);
-            return Ok(user);
+            //var user = _userServices.Authenticate(authorizateuser.Email, authorizateuser.Password, out string token);
+            //Response.Headers.Add("Authorization", token);
+            //return Ok(user);
+            return Ok("Its working");
         }
-        
+
         [Authorize(Roles = "BaseAdmin")]
         [HttpPost("register-admin")]
         public IActionResult RegisterAdmin([FromBody] RegisterUserViewModel admin)
-        {                   
+        {
             _userServices.RegisterAdmin(admin);
             return Ok();
         }
 
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<UserViewModel> GetUser(int id)
         {

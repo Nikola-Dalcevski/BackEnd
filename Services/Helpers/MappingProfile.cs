@@ -42,6 +42,18 @@ namespace BusinessLayer.Helpers
                 .ForMember(dest => dest.HasStock, src => src.Ignore())
                 .ReverseMap()
                 .ForMember(dest => dest.Quantity, src => src.Ignore());
+
+
+            CreateMap<User, RegisterUserViewModel>()
+                .ForMember(dest => dest.FirstName, src => src.MapFrom(x => x.FirstName))
+                .ForMember(dest => dest.LastName, src => src.MapFrom(x => x.LastName))
+                .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
+                .ForMember(dest => dest.Password, src => src.MapFrom(x => x.Password))
+                .ForMember(dest => dest.Phone, src => src.MapFrom(x => x.Phone))
+                .ReverseMap()
+                .ForMember(dest => dest.Id, src => src.Ignore())
+                .ForMember(dest => dest.Orders, src => src.Ignore())
+                .ForMember(dest => dest.Role, src => src.Ignore());
                 
 
 

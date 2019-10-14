@@ -41,8 +41,23 @@ namespace DataAccess
 
            });
 
-            
-            //base.OnModelCreating(modelbilder);
+
+            //modelbilder.Entity<Order>()
+            //    .HasMany(x => x.OrderBicycles)
+            //    .
+               
+
+            //   .Map(cs =>
+            //   {
+            //       cs.MapLeftKey("BookId");
+            //       cs.MapRightKey("CategoryId");
+            //       cs.ToTable("BookCategories");
+            //   });
+
+
+            base.OnModelCreating(modelbilder);
+            modelbilder.Entity<OrderBicycle>()
+                .HasKey(x => new { x.OrderId, x.BicycleId });
 
         }
 

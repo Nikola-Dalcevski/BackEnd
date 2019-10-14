@@ -17,6 +17,8 @@ namespace BusinessLayer
         private readonly IJwtTokenGenerator _jwtGenerator;
         private readonly IMapper _mapper;
 
+         
+
         public UserServices(IUserRepository userRepository, IJwtTokenGenerator jwtGenerator, IMapper mapper)
         {
             _userRepository = userRepository;
@@ -42,11 +44,13 @@ namespace BusinessLayer
             token = _jwtGenerator.Generator(user);
             var viewUser = _mapper.Map<UserViewModel>(user);
             return viewUser;
+
         }
 
         public void RegisterUser(RegisterUserViewModel user)
         {
-           
+
+
             if (UserExists(user.Email))
             {
                 throw new ArgumentException($"User with email: {user.Email} alredy exists");
@@ -57,7 +61,7 @@ namespace BusinessLayer
             dtoUser.Password = password;
             dtoUser.Role = Roles.User;
             _userRepository.Insert(dtoUser);
-            
+
         }
 
         //TODO:Fix the view models in controller and services;
@@ -75,7 +79,7 @@ namespace BusinessLayer
             string password = Hashing.sha256(admin.Password);
             admin.Password = password;
             _userRepository.Insert(dtoAdmin);
-            
+
         }
         //FINISHED-TODO: find way to implement in repositories find by email
         //cant change baseReposiotry because its inhering form entity that has only id.
@@ -99,6 +103,7 @@ namespace BusinessLayer
 
             List<User> users = _userRepository.GetAll().Where(u => u.Role == role).ToList();
             return _mapper.Map<List<UserViewModel>>(users);
+
         }
 
         public UserViewModel GetUser(int id)
@@ -110,6 +115,7 @@ namespace BusinessLayer
             }
 
             return _mapper.Map<UserViewModel>(user);
+
         }
 
 
@@ -120,6 +126,6 @@ namespace BusinessLayer
             return user != null;
         }
 
-     
+
     }
 }

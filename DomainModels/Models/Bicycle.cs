@@ -64,7 +64,7 @@ namespace DomainModels.Models
 
         public double Prize { get; set; }
 
-        public virtual ICollection<OrderBicycle> Bicycles { get; set; }
+        public virtual ICollection<OrderBicycle> OrdersBicycle { get; set; }
 
     }
 }

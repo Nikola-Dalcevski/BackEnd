@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleBuyingGuide.Api.Controllers
 {
-    public class AliveController : Controller
+    [Authorize]
+    public class AliveController : ControllerBase
     {
 
+        [AllowAnonymous]
         [HttpGet]
-        [Route("bicycle/[Controller]")]
+        [Route("bbg/[Controller]")]
         public IActionResult Index()
         {
             return NoContent();

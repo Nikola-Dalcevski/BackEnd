@@ -1,5 +1,7 @@
-﻿using BicycleBuyingGuide.Api.Filters;
+﻿using AutoMapper;
+using BicycleBuyingGuide.Api.Filters;
 using BicycleBuyingGuide.Api.Middlewares;
+using BusinessLayer.Helpers;
 using DomainModels.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -62,7 +64,7 @@ namespace BicycleBuyingGuide.Api
                 };
             });
 
-
+            services.AddAutoMapper(typeof(MappingProfile));
 
             //register swagger
             services.AddSwaggerGen(c =>
@@ -92,6 +94,7 @@ namespace BicycleBuyingGuide.Api
                 options.AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowAnyOrigin()
+                        .AllowCredentials()
                         .WithExposedHeaders("Authorization");
 
             });

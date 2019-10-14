@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BusinessLayer.Contracts;
 using DomainModels.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.ViewModels;
 
@@ -10,17 +13,17 @@ namespace BicycleBuyingGuide.Api.Controllers
 {
 
     [Authorize]
-    [ApiController]
     [Route("api/[controller]")]
-    public class BicycleController : ControllerBase
+    [ApiController]
+    public class BicyclesController : ControllerBase
     {
-
         private readonly IBicycleServices _bicycleServices;
 
-        public BicycleController(IBicycleServices bicycleServices)
+        public BicyclesController(IBicycleServices bicycleServices)
         {
             _bicycleServices = bicycleServices;
         }
+
 
         [AllowAnonymous]
         [HttpGet("{id}")]
@@ -33,8 +36,9 @@ namespace BicycleBuyingGuide.Api.Controllers
         }
 
 
-        [AllowAnonymous]
-        [HttpGet]
+
+
+        [HttpGet("get")]
         [Route("bbg/[Controller]")]
         public IActionResult GetAllBicycles()
         {
@@ -68,4 +72,6 @@ namespace BicycleBuyingGuide.Api.Controllers
             return Ok(bicycle);
         }
     }
+
+
 }
